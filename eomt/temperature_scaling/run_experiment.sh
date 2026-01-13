@@ -14,8 +14,8 @@ CACHE_ROOT="/content/drive/MyDrive/temperature/MaskArchitectureAnomaly_CoursePro
 # ==============================================================================
 DATASETS=("FS_LostFound_full" "fs_static" "RoadAnomaly" "RoadAnomaly21" "RoadObsticle21")
 METHODS=("msp" "rba" "maxlogit" "maxentropy")
-#TEMPERATURES=(0.5 0.75 1.0 1.2 1.4 1.6 1.8 2.0 2.2 2.4 2.6 2.8 3.0 5.0 100.0)
-TEMPERATURES=(1.1)
+TEMPERATURES=(0.5 0.75 1.0 1.2 1.4 1.6 1.8 2.0 2.2 2.4 2.6 2.8 3.0 5.0 100.0)
+
 # Move to the script directory to handle imports
 cd "$(dirname "$SCRIPT_PATH")" || exit
 
