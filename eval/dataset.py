@@ -69,10 +69,21 @@ class cityscapes(Dataset):
         self.images_root = os.path.join(root, 'leftImg8bit/' + subset)
         self.labels_root = os.path.join(root, 'gtFine/' + subset)
         print(self.images_root, self.labels_root)
-        self.filenames = [os.path.join(dp, f) for dp, dn, fn in os.walk(os.path.expanduser(self.images_root)) for f in fn if is_image(f)]
+       #bug fixed
+        self.filenames = []
+        for dp, dn, fn in os.walk(os.path.expanduser(self.images_root)):
+            for f in fn:
+                if is_image(f):
+                    rel_path = os.path.relpath(os.path.join(dp, f), self.images_root)
+                    self.filenames.append(rel_path)
         self.filenames.sort()
 
-        self.filenamesGt = [os.path.join(dp, f) for dp, dn, fn in os.walk(os.path.expanduser(self.labels_root)) for f in fn if is_label(f)]
+        self.filenamesGt = []
+        for dp, dn, fn in os.walk(os.path.expanduser(self.labels_root)):
+            for f in fn:
+                if is_label(f):
+                    rel_path = os.path.relpath(os.path.join(dp, f), self.labels_root)
+                    self.filenamesGt.append(rel_path)
         self.filenamesGt.sort()
 
         self.input_transform = input_transform

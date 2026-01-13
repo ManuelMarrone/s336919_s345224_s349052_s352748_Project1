@@ -3,6 +3,7 @@
 # Eduardo Romera
 #######################
 
+from fileinput import filename
 import numpy as np
 import torch
 import torch.nn.functional as F
@@ -92,7 +93,7 @@ def main(args):
 
         iouEvalVal.addBatch(outputs.max(1)[1].unsqueeze(1).data, labels)
 
-        filenameSave = filename[0].split("leftImg8bit/")[1] 
+        filenameSave = filename[0].replace("\\", "/")
 
         print (step, filenameSave)
 

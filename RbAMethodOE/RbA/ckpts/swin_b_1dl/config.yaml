@@ -1,0 +1,87 @@
+CUDNN_BENCHMARK: false
+DATALOADER:
+  ASPECT_RATIO_GROUPING: true
+  FILTER_EMPTY_ANNOTATIONS: true
+  NUM_WORKERS: 10
+  REPEAT_THRESHOLD: 0.0
+  SAMPLER_TRAIN: TrainingSampler
+DATASETS:
+  PRECOMPUTED_PROPOSAL_TOPK_TEST: 1000
+  PRECOMPUTED_PROPOSAL_TOPK_TRAIN: 2000
+  PROPOSAL_FILES_TEST: []
+  PROPOSAL_FILES_TRAIN: []
+  TEST:
+    - cityscapes_fine_sem_seg_val
+  TRAIN:
+    - cityscapes_fine_sem_seg_val
+    - coco_ood_train2017
+  UNSEEN_LABEL_SET: ''
+GLOBAL:
+  HACK: 1.0
+INPUT:
+  COCO_PROXY_SIZE: 300
+  COCO_ROOT: COCO/
+  COLOR_AUG_SSD: true
+  CROP:
+    ENABLED: true
+    SINGLE_CATEGORY_MAX_AREA: 1.0
+    SIZE:
+      - 512
+      - 1024
+    TYPE: absolute
+  DATASET_MAPPER_NAME: mask_former_semantic_ood
+  FORMAT: RGB
+  IMAGE_SIZE: 1024
+  MASK_FORMAT: polygon
+  MAX_SCALE: 2.0
+  MAX_SIZE_TEST: 2048
+  MAX_SIZE_TRAIN: 4096
+  MIN_SCALE: 0.1
+  MIN_SIZE_TEST: 1024
+  MIN_SIZE_TRAIN:
+    - 512
+    - 614
+    - 716
+    - 819
+    - 921
+    - 1024
+    - 1126
+    - 1228
+    - 1331
+    - 1433
+    - 1536
+    - 1638
+    - 1740
+    - 1843
+    - 1945
+    - 2048
+  MIN_SIZE_TRAIN_SAMPLING: choice
+  OOD_LABEL: 254
+  OOD_PROB: 0.2
+  RANDOM_FLIP: horizontal
+  REPEAT_INSTANCE_MASKS: 1
+  SIZE_DIVISIBILITY: -1
+MODEL:
+  DEVICE: cuda
+  BACKBONE:
+    NAME: D2SwinTransformer
+    FREEZE_AT: 0
+  FREEZE_BACKBONE: false
+  FREEZE_PIXEL_DECODER: false
+  FREEZE_TRANSFORMER_DECODER: false
+  MASK_FORMER:
+    OUTLIER_SUPERVISION: true
+    OOD_PROB: 0.2
+  WEIGHTS: ./model_logs/mask2former_dec_layers_2_res5_only/model_0009999.pth
+OUTPUT_DIR: ./model_logs/mask2former_dec_layers_2_res5_only_ood/
+SOLVER:
+  AMP:
+    ENABLED: true
+  BASE_LR: 0.0001
+  OPTIMIZER: ADAMW
+  MAX_ITER: 90000
+  IMS_PER_BATCH: 1
+  WEIGHT_DECAY: 0.05
+TEST:
+  DETECTIONS_PER_IMAGE: 100
+  EVAL_PERIOD: 5000

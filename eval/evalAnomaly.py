@@ -12,6 +12,7 @@ from argparse import ArgumentParser
 from ood_metrics import fpr_at_95_tpr, calc_metrics, plot_roc, plot_pr,plot_barcode
 from sklearn.metrics import roc_auc_score, roc_curve, auc, precision_recall_curve, average_precision_score
 from torchvision.transforms import Compose, Resize, ToTensor, Normalize
+import torch.nn.functional as F
 
 seed = 42
 
@@ -97,10 +98,33 @@ def main():
     for path in glob.glob(os.path.expanduser(str(args.input[0]))):
         print(path)
         images = input_transform((Image.open(path).convert('RGB'))).unsqueeze(0).float().cuda()
-        images = images.permute(0,3,1,2)
+        #images = images.permute(0,3,1,2)
         with torch.no_grad():
-            result = model(images)
-        anomaly_result = 1.0 - np.max(result.squeeze(0).data.cpu().numpy(), axis=0)            
+            result = model(images) #logits
+
+        #MSP
+        probs = F.softmax(result, dim=1)  
+        anomaly_result = 1.0 - np.max(probs.squeeze(0).data.cpu().numpy(), axis=0)
+        #MAX LOGIT V1 Calculates the negative of the maximum value of the logits (not normalized)      
+        #anomaly_result = - np.max(result.squeeze(0).data.cpu().numpy(), axis=0)     
+
+        #MAX LOGIT V2
+        # 1. Take max logit for each pixel
+        #max_logits = torch.max(result, dim=1)[0]  # [batch_size, height, width]
+
+        # 2. The anomaly score is the negative (by convention, where higher values = more anomalous)
+        #anomaly_result = -max_logits
+
+        #MAX ENTROPY
+        #probs = F.softmax(result, dim=1)
+        #log_probs = F.log_softmax(result, dim=1)
+        
+        # entropy: sum -(p * log_p) on the classes axis (dim=1)
+        #entropy = -torch.sum(probs * log_probs, dim=1)
+        
+        # Remove the batch dimension and convert to numpy
+        #anomaly_result = entropy.squeeze(0).data.cpu().numpy()
+        
         pathGT = path.replace("images", "labels_masks")                
         if "RoadObsticle21" in pathGT:
            pathGT = pathGT.replace("webp", "png")
