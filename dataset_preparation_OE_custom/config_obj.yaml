@@ -1,0 +1,5 @@
+coco_json: "/content/COCO/annotations/instances_train2017.json"
+coco_img_dir: "/content/COCO/train2017"
+save_dir: "/content/drive/MyDrive/Colab Notebooks/AML_Project/DatasetOE/Cityscapes+COCO/COCO/coco_objects"
+categories: cat, airplane, dog, horse
+min_size: 480

@@ -1,0 +1,13 @@
+city_img_dir: "./Cityscapes/leftImg8bit/train"
+coco_obj_dir: "./COCO/coco_objects"
+save_img_dir: "./dataset_oe_test/images"
+save_mask_dir: "./dataset_oe_test/anomaly_masks"
+
+objects_per_image: [1, 3]        # Min and max number of objects per image
+paste_prob: 0.8                  # Probability of pasting each selected object
+scale_range: [0.2, 0.6]          # scala range for the object dimension
+rotation_range: [-15, 15]        # Min and max angle (degrees) for random rotation 
+blend_mode: "gaussian"           # Blending mode: 'gaussian' for soft edges
+blend_sigma: 5                   # sigma value to control blur strength
+
+
