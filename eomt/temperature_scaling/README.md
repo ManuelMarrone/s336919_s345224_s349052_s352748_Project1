@@ -28,7 +28,7 @@ drive.mount('/content/drive')
 # Install dependencies
 !pip install lightning
 # Modify the path below if your requirements.txt is elsewhere
-!pip install -r "/content/drive/MyDrive/temperature/MaskArchitectureAnomaly_CourseProject-main/MaskArchitectureAnomaly_CourseProject-main/eomt/requirements.txt"
+!pip install -r "/content/drive/MyDrive/YOUR_PROJECT/eomt/requirements.txt"
 
 3. Path Configuration
 BEFORE RUNNING THE SCRIPT: You must open the run_experiment.sh file and modify the variables at the top so they correspond exactly to the location of the files in your Google Drive.
@@ -38,16 +38,16 @@ Open run_experiment.sh and modify these lines:
 # EXAMPLE OF WHAT TO MODIFY IN run_experiment.sh
 
 # 1. Where the python script is located
-SCRIPT_PATH="/content/drive/MyDrive/YOUR_PATH/eomt/eval_anomaly_eomt.py"
+SCRIPT_PATH="/content/drive/MyDrive/YOUR_PROJECT/eomt/eval_anomaly_eomt.py"
 
 # 2. Where the model weights are saved
-WEIGHTS_DIR="/content/drive/MyDrive/YOUR_PATH/eomt/checkpoints"
+WEIGHTS_DIR="/content/drive/MyDrive/YOUR_PROJECT/eomt/checkpoints"
 
 # 3. [IMPORTANT] The folder containing all datasets
-BASE_DATA_DIR="/content/drive/MyDrive/YOUR_PATH/datasets"
+BASE_DATA_DIR="/content/drive/MyDrive/YOUR_PROJECT/datasets"
 
 # 4. Where to save temporary results
-CACHE_ROOT="/content/drive/MyDrive/YOUR_PATH/logits_cache"
+CACHE_ROOT="/content/drive/MyDrive/YOUR_PROJECT/logits_cache"
 
 4. Running the Experiment
 Once the libraries are installed and the paths in the bash file are configured, start the experiment with the following command.
@@ -60,4 +60,4 @@ Evaluation: Calculation of metrics with different temperatures (fast, uses cache
 
 Command:
 # Replace with the correct path to your .sh file
-!bash "/content/drive/MyDrive/temperature/MaskArchitectureAnomaly_CourseProject-main/MaskArchitectureAnomaly_CourseProject-main/eomt/run_experiment.sh"
+!bash "/content/drive/MyDrive/YOUR_PROJECT/eomt/run_experiment.sh"
