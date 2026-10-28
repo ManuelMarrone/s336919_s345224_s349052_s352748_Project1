@@ -47,4 +47,3 @@ The final module introduces our custom **OE training pipeline**, designed to enh
 * **Technical Strategy**:
     * **Data Augmentation**: We employ a **Cut-and-Paste** strategy, where objects from the **COCO dataset** (non-urban classes) are synthetically injected into **Cityscapes** frames.
     * **Objective**: The pipeline trains the model to recognize these foreign objects as "anomalous" while maintaining high mIoU on the primary task.
-    * **Innovation**: Our approach focuses on [insert your specific motivation here, e.g., balancing the loss between in-distribution accuracy and OOD detection].
